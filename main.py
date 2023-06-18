@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import QPoint, Qt, QRect
 from PyQt5.QtGui import QPainter, QColor, QPixmap, QIcon, QPalette, QBrush, QImage, QPen
 from PyQt5.QtWidgets import QGridLayout, QWidget, QPushButton, QColorDialog, QHBoxLayout, QFileDialog, QVBoxLayout, \
     QLabel
@@ -205,6 +205,7 @@ class PixelArt16(QWidget):
         self.setWindowTitle('Pixel Art')
         self.color = QColor(0, 0, 0)
         self.pixels = []
+
         for i in range(16):
             row = []
             for j in range(16):
@@ -213,7 +214,9 @@ class PixelArt16(QWidget):
                 row.append(pixel)
             self.pixels.append(row)
 
-        gridLayout = QGridLayout(self)
+        gridLayout = QGridLayout()
+        gridLayout.setContentsMargins(5, 10, 5, 20)
+
         for i in range(16):
             for j in range(16):
                 gridLayout.addWidget(self.pixels[i][j], i, j)
@@ -258,6 +261,8 @@ class PixelArt16(QWidget):
         hbox.addWidget(self.eraserButton)
         hbox.addWidget(self.fillButton)
         hbox.addWidget(self.BackButton)
+        hbox.addWidget(self.ImageButton)
+        hbox.setContentsMargins(0, 0, 580, 0)
 
         saveButton = QPushButton('Сохранить', self)
         saveButton.setIcon(QIcon('resources/save.png'))
@@ -298,8 +303,8 @@ class PixelArt16(QWidget):
                 if pixel.color == QColor(255, 255, 255):
                     pixel.setColor(self.color)
                     painter.setPen(QPen(QtGui.QColor(pixel.color), 3, Qt.SolidLine))
-                    painter.drawRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 4, + 30 - 4)
-                    painter.fillRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 4, 30 - 4, QtGui.QColor(pixel.color))
+                    painter.drawRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 3, + 30 - 3)
+                    painter.fillRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 3, 30 - 3, QtGui.QColor(pixel.color))
                     self.update()
 
     def draw(self, event):
@@ -312,8 +317,8 @@ class PixelArt16(QWidget):
                 if pixel.geometry().contains(QPoint(xPos, yPos)):
                     pixel.setColor(self.color)
                     painter.setPen(QPen(QtGui.QColor(pixel.color), 3, Qt.SolidLine))
-                    painter.drawRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 4, 30 - 4)
-                    painter.fillRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 4, 30 - 4, QtGui.QColor(pixel.color))
+                    painter.drawRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 3, 30 - 3)
+                    painter.fillRect(4 + j * 30 - 3, 4 + i * 30 - 3, 30 - 3, 30 - 3, QtGui.QColor(pixel.color))
                     self.update()
 
     def load_image(self):
@@ -369,6 +374,7 @@ class PixelArt32(QWidget):
             self.pixels.append(row)
 
         gridLayout = QGridLayout(self)
+        gridLayout.setContentsMargins(5, 50, 5, 20)
         for i in range(32):
             for j in range(32):
                 gridLayout.addWidget(self.pixels[i][j], i, j)
@@ -409,6 +415,8 @@ class PixelArt32(QWidget):
         hbox.addWidget(self.eraserButton)
         hbox.addWidget(self.fillButton)
         hbox.addWidget(self.BackButton)
+        hbox.addWidget(self.ImageButton)
+        hbox.setContentsMargins(0, 0, 415, 0)
 
         saveButton = QPushButton('Сохранить', self)
         saveButton.setIcon(QIcon('resources/save.png'))
@@ -449,8 +457,8 @@ class PixelArt32(QWidget):
                 if pixel.color == QColor(255, 255, 255):
                     pixel.setColor(self.color)
                     painter.setPen(QPen(QtGui.QColor(pixel.color), 3, Qt.SolidLine))
-                    painter.drawRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 4, 15 - 4)
-                    painter.fillRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 4, 15 - 4, QtGui.QColor(pixel.color))
+                    painter.drawRect(4 + j * 15 - 3, 3 + i * 15 - 3, 15 - 3, 15 - 3)
+                    painter.fillRect(4 + j * 15 - 3, 3 + i * 15 - 3, 15 - 3, 15 - 3, QtGui.QColor(pixel.color))
                     self.update()
 
     def draw(self, event):
@@ -463,8 +471,8 @@ class PixelArt32(QWidget):
                 if pixel.geometry().contains(QPoint(xPos, yPos)):
                     pixel.setColor(self.color)
                     painter.setPen(QPen(QtGui.QColor(pixel.color), 3, Qt.SolidLine))
-                    painter.drawRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 4, 15 - 4)
-                    painter.fillRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 4, 15 - 4, QtGui.QColor(pixel.color))
+                    painter.drawRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 3, 15 - 3)
+                    painter.fillRect(4 + j * 15 - 3, 4 + i * 15 - 3, 15 - 3, 15 - 3, QtGui.QColor(pixel.color))
                     self.update()
 
     def load_image(self):
@@ -540,3 +548,4 @@ if __name__ == '__main__':
     app.setPalette(palette)
     sw.show()
     sys.exit(app.exec_())
+
